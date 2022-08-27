@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="toukou" method="post">
+		タイトル<input th:type="text" th:id="mainTitle" th:name="mainTitle"><br>
+		タグ<input th:type="text" th:id="tag" th:name="tag"><br>
+		本文<input th:type="text" th:id="text" th:name="text"><br>
+		
+		<button th:type="submit">投稿</button>
+	</form>
+	<a th:href="rootPage">管理者ホームへ戻る</a>
+</body>
+</html>
