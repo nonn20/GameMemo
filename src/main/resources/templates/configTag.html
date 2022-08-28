@@ -9,6 +9,7 @@
 		<a th:href="rootPage">管理者ホームへ戻る</a>
 		<h4>タグを追加する</h4>
 		<form th:action="addTag" th:method="post" >
+			<p th:text="${caution}"></p>
 			名前:<input th:type="text" id="name" name="name">
 			<button th:type="submit">追加</button>
 		</form>
@@ -16,7 +17,9 @@
 	<div>
 		<div th:each="Tag:${allTags}">
 			<div th:abject="${Tag}">
-				<p>[[${Tag.id}]]:[[${Tag.name}]]</p>
+				<p>[[${Tag.id}]]:[[${Tag.name}]]  
+					<a th:href="|removeTag?id=${Tag.id}|">このタグを削除する</a>
+				</p>
 			</div>
 		</div>
 	</div>

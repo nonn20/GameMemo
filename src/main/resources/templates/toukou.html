@@ -5,10 +5,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div th:text="${caution}"></div>
 	<form action="toukou" method="post">
 		タイトル<input th:type="text" th:id="mainTitle" th:name="mainTitle"><br>
-		タグ<input th:type="text" th:id="tag" th:name="tag"><br>
-		本文<input th:type="text" th:id="text" th:name="text"><br>
+		タグ    <input th:type="text" th:id="tag" th:name="tag"><br>
+		本文    <textarea th:type="textarea" cols="50" rows="10" th:id="text" th:name="text"></textarea><br>
 		
 		<button th:type="submit">投稿</button>
 	</form>

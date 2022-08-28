@@ -1,26 +1,25 @@
 package com.example.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.entity.Tag;
 import com.example.entity.TagEntity;
-import com.example.entity.Toukou;
 import com.example.repository.TagEntityRepository;
 import com.example.repository.TagRepository;
 import com.example.repository.ToukouRepository;
+import com.example.service.ArtRegistService;
+import com.example.service.TagRegistService;
 
 @Controller
 public class RootController {
-	@Autowired
-	ToukouRepository repository;
+	
 	
 	@Autowired
 	TagRepository tagRepository;
@@ -28,9 +27,18 @@ public class RootController {
 	@Autowired
 	TagEntityRepository tagERepository;
 	
+	@Autowired
+	ToukouRepository repository;
+	
+	@Autowired
+	ArtRegistService artRegistService;
+	
+	@Autowired
+	TagRegistService tagRegistService;
+	
 	/*記事登録*/
 	@RequestMapping("toukouPage")
-	public String toukou() {
+	public String toukou(@ModelAttribute("caution") String caution) {
 		return "toukou";
 	}
 	
@@ -39,55 +47,51 @@ public class RootController {
 	public String toukou(Model model,
 					@RequestParam String mainTitle,
 					@RequestParam String tag,
-					@RequestParam String text) {
-		/*日時も併せてDBへ登録*/
-		/*登録用のToukouインスタンス生成*/
-		Toukou toukou = new Toukou();
-		toukou.setMaintitle(mainTitle);
-		toukou.setTag(tag);
-		toukou.setText(text);
+					@RequestParam String text,
+					RedirectAttributes redirectAttributes) {
 		
-		/*現在日時を取得*/
-		Date date = new Date();
-		SimpleDateFormat format= new SimpleDateFormat("yyyy/MM/dd");
-		String registDate = format.format(date);
-		toukou.setDate(registDate);
-		
-		int nextId = (int)repository.count()+1;
-		Integer artNum;
-		for(int i=0;i<tag.length()-1;) {
-			
-			if(tag.substring(i).indexOf(':')==-1) {
-				break;
-			}
-			else {
-				artNum = Integer.parseInt(tag.substring(i,tag.substring(i).indexOf(':')+i));
-				i+=tag.substring(i).indexOf(':')+1;
-				/*Tagインスタンスを生成*/
-				Tag tagEntity = new Tag((Integer)nextId,artNum);
-				/*DB保存*/
-				tagRepository.save(tagEntity);
-			}
+		int errorNum = artRegistService.toukouTagRegist(tag);
+		if(errorNum != 0) {
+			redirectAttributes.addAttribute("caution", "指定したタグは存在しません: "+errorNum);
+			return "redirect:toukouPage";
 		}
-		
-		repository.save(toukou);
-		
+		else {
+			artRegistService.toukouRegist(mainTitle,tag,text);
+		}
 		return "redirect:rootPage";
 	}
+	
 	/*タグ管理ページ*/
 	@RequestMapping("configTag")
-	public String registTag(Model model) {
+	public String registTag(Model model,@ModelAttribute("caution") String caution) {
 		Iterable<TagEntity> allTags = tagERepository.findAll();
 		model.addAttribute("allTags",allTags);
 		return "configTag";
 	}
 	/*タグ追加*/
 	@PostMapping("addTag")
-	public String addTag(@RequestParam String name) {
-		TagEntity tagE = new TagEntity();
-		tagE.setName(name);
-		tagERepository.save(tagE);
-		/*かぶりのあった場合の処理*/
+	public String addTag(@RequestParam String name,RedirectAttributes redirectAttributes) {
+		
+		/*追加しようとしているタグの名前かぶりがないか確認*/
+		if(!tagRegistService.existSameTag(name)) {
+			redirectAttributes.addAttribute("caution","そのタグはすでに登録されています。");
+			return "redirect:configTag";
+		}
+		redirectAttributes.addAttribute("caution","タグを追加しました");
+		return "redirect:configTag";
+	}
+	
+	/*タグ消去*/
+	@GetMapping("removeTag")
+	public String removeTag(@RequestParam int id,RedirectAttributes redirectAttributes) {
+		if(tagERepository.existsById(id)) {
+			tagERepository.deleteById(id);
+			redirectAttributes.addAttribute("caution", "指定したタグを削除しました");
+		}
+		else {
+			redirectAttributes.addAttribute("caution","エラー:指定したタグが見つかりません");
+		}
+		
 		return "redirect:configTag";
 	}
 	
