@@ -16,7 +16,7 @@
 	</div>
 	<div>
 		<div th:each="Tag:${allTags}">
-			<div th:abject="${Tag}">
+			<div th:object="${Tag}">
 				<p>[[${Tag.id}]]:[[${Tag.name}]]  
 					<a th:href="|removeTag?id=${Tag.id}|">このタグを削除する</a>
 				</p>

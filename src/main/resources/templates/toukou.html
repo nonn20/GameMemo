@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<a th:href="rootPage">管理者ホームへ戻る</a>
 	<div th:text="${caution}"></div>
 	<form action="toukou" method="post">
 		タイトル<input th:type="text" th:id="mainTitle" th:name="mainTitle"><br>
@@ -13,6 +14,5 @@
 		
 		<button th:type="submit">投稿</button>
 	</form>
-	<a th:href="rootPage">管理者ホームへ戻る</a>
 </body>
 </html>

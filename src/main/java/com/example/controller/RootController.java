@@ -41,7 +41,6 @@ public class RootController {
 	public String toukou(@ModelAttribute("caution") String caution) {
 		return "toukou";
 	}
-	
 	/*記事登録処理*/
 	@PostMapping("toukou")
 	public String toukou(Model model,
@@ -60,7 +59,51 @@ public class RootController {
 		}
 		return "redirect:rootPage";
 	}
-	
+	/*記事削除編集ページ*/
+	@RequestMapping("toukouEditPage")
+	public String toukouEdit(Model model) {
+		model.addAttribute("artList", repository.findAll());
+		return "toukouEdit";
+	}
+	/*記事編集ページ*/
+	@GetMapping("editArtPage")
+	public String editArtPage(Model model,@RequestParam int id,@RequestParam String caution) {
+		model.addAttribute("artContent", repository.findById(id).get());
+		model.addAttribute("caution", caution);
+		return "editArt";
+	}
+	/*記事編集処理ページ*/
+	@PostMapping("editArt")
+	public String editArt(@RequestParam Integer id,
+						  @RequestParam String mainTitle,
+						  @RequestParam String tag,
+						  @RequestParam String text,
+						  RedirectAttributes redirectAttributes,
+						  Model model
+							) {
+		/*タグ確認*/
+		int errorNum = artRegistService.toukouTagRegist(tag);
+		if(errorNum != 0) {
+			redirectAttributes.addAttribute("caution", "指定したタグは存在しません: "+errorNum);
+			redirectAttributes.addAttribute("id", id);
+			return "redirect:editArtPage";
+		}
+		/*記事削除、登録*/
+		else {
+			if(null==artRegistService.toukouEdit(id, mainTitle, tag, text)) {
+				redirectAttributes.addAttribute("caution", "エラーが発生しました");
+				redirectAttributes.addAttribute("id", id);
+				return "redirect:editArtPage";
+			}
+		}
+		return "toukouEdit";
+	}
+	/*記事削除処理*/
+	@GetMapping("removeArt")
+	public String removeArt(@RequestParam Integer id) {
+		repository.deleteById(id);
+		return "redirect:toukouEditPage";
+	}
 	/*タグ管理ページ*/
 	@RequestMapping("configTag")
 	public String registTag(Model model,@ModelAttribute("caution") String caution) {
@@ -80,7 +123,6 @@ public class RootController {
 		redirectAttributes.addAttribute("caution","タグを追加しました");
 		return "redirect:configTag";
 	}
-	
 	/*タグ消去*/
 	@GetMapping("removeTag")
 	public String removeTag(@RequestParam int id,RedirectAttributes redirectAttributes) {
@@ -94,7 +136,6 @@ public class RootController {
 		
 		return "redirect:configTag";
 	}
-	
 	/*管理者ホーム*/
 	@RequestMapping("rootPage")
 	public String root() {

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<a th:href="toukouEditPage">記事一覧に戻る</a>
+	<p th:text="${caution}"></p>
+	<form action="editArt" method="post">
+		ID      <input th:type="text" th:id="id" th:name="id" th:value="${artContent.id}" readonly><br>
+		タイトル<input th:type="text" th:id="mainTitle" th:name="mainTitle" th:value="${artContent.maintitle}"><br>
+		タグ    <input th:type="text" th:id="tag" th:name="tag" th:value="${artContent.tag}"><br>
+		本文    <textarea th:type="textarea" cols="50" rows="10" th:id="text" th:name="text">[[${artContent.text}]]</textarea><br>
+		<button th:type="submit">編集を適用する</button>
+	</form>
+</body>
+</html>

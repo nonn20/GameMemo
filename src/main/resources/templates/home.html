@@ -7,5 +7,8 @@
 <body>
 	<p>ここはホームです。</p>
 	<a th:href="rootPage">管理者ページ</a>
+	<div th:each="art:${artList}" >
+		<p><a th:href="|art?id=${art.id}|">[[${art.maintitle}]]</a></p>
+	</div>
 </body>
 </html>

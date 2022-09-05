@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<a th:href="rootPage">管理者ホームへ戻る</a>
+	<div th:each="art:${artList}">
+		<div>
+			<p th:text="|${art.date}  ${art.maintitle}|"></p>
+			<a th:href="|editArtPage?id=${art.id}&caution=|"><button>この記事を編集する</button></a>
+			<a th:href="|removeArt?id=${art.id}|"><button>この記事を削除する</button></a>
+			<!-- 削除しようとしたときに警告ポップアップを出すスクリプト -->
+		</div>
+	</div>
+</body>
+</html>
