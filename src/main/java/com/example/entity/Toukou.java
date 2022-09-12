@@ -15,5 +15,6 @@ public class Toukou {
 	private String maintitle;
 	private String tag;
 	private String text;
+	private String lastupdate;
 	private String date;
 }

@@ -7,11 +7,12 @@
 <body>
 	<a th:href="toukouEditPage">記事一覧に戻る</a>
 	<p th:text="${caution}"></p>
-	<form action="editArt" method="post">
-		ID      <input th:type="text" th:id="id" th:name="id" th:value="${artContent.id}" readonly><br>
-		タイトル<input th:type="text" th:id="mainTitle" th:name="mainTitle" th:value="${artContent.maintitle}"><br>
-		タグ    <input th:type="text" th:id="tag" th:name="tag" th:value="${artContent.tag}"><br>
-		本文    <textarea th:type="textarea" cols="50" rows="10" th:id="text" th:name="text">[[${artContent.text}]]</textarea><br>
+	<form action="editArt" method="post" th:object="${toukou}">
+		ID      <input th:type="text" th:id="id" th:name="id" th:value="*{id}" readonly><br>
+		投稿日  <input th:type="text" th:id="date" th:name="date" th:value="*{date}" readonly><br>
+		タイトル<input th:type="text" th:id="maintitle" th:name="maintitle" th:value="*{maintitle}"><br>
+		タグ    <input th:type="text" th:id="tag" th:name="tag" th:value="*{tag}"><br>
+		本文    <textarea th:type="textarea" cols="50" rows="10" th:id="text" th:name="text">[[*{text}]]</textarea><br>
 		<button th:type="submit">編集を適用する</button>
 	</form>
 </body>

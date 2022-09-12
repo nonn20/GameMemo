@@ -24,43 +24,37 @@ public class ArtRegistService {
 	TagRepository tagRepository;
 	
 	/*toukouテーブルに追加*/
-	public Toukou toukouRegist(String mainTitle,String tag,String text) {
+	public Toukou toukouRegist(Toukou toukou) {
 		/*日時も併せてDBへ登録*/
 		/*登録用のToukouインスタンス生成*/
-		Toukou toukou = new Toukou();
-		toukou.setMaintitle(mainTitle);
-		toukou.setTag(tag);
-		toukou.setText(text);
 		
 		/*現在日時を取得*/
 		Date date = new Date();
 		SimpleDateFormat format= new SimpleDateFormat("yyyy/MM/dd");
 		String registDate = format.format(date);
 		toukou.setDate(registDate);
+		toukou.setLastupdate(registDate);
 		
 		return repository.save(toukou);
 	}
 	
 	/*idも取得し、編集（削除→追加）*/
-	public Toukou toukouEdit(Integer id,String mainTitle,String tag,String text) {
+	public Toukou toukouEdit(Toukou toukou) {
 		/*以前の記事を削除する*/
-		if(repository.existsById(id)) {
-			repository.deleteById(id);
+		Toukou result = null;
+		if(repository.existsById(toukou.getId())) {
+			repository.deleteById(toukou.getId());
+			/*idを初期化*/
+			toukou.setId(null);
+			/*現在日時を取得し最終更新日を更新*/
+			Date lastupdate = new Date();
+			SimpleDateFormat format= new SimpleDateFormat("yyyy/MM/dd");
+			String registDate = format.format(lastupdate);
+			toukou.setLastupdate(registDate);
+			result = repository.save(toukou);
+			
 		}
-		/*日時も併せてDBへ登録*/
-		/*登録用のToukouインスタンス生成*/
-		Toukou toukou = new Toukou();
-		toukou.setMaintitle(mainTitle);
-		toukou.setTag(tag);
-		toukou.setText(text);
-		
-		/*現在日時を取得*/
-		Date date = new Date();
-		SimpleDateFormat format= new SimpleDateFormat("yyyy/MM/dd");
-		String registDate = format.format(date);
-		toukou.setDate(registDate);
-		
-		return repository.save(toukou);
+		return result;
 	}
 	
 	/*tagテーブルに追加*/

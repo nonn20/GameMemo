@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.entity.TagEntity;
+import com.example.entity.Toukou;
 import com.example.repository.TagEntityRepository;
 import com.example.repository.TagRepository;
 import com.example.repository.ToukouRepository;
@@ -36,6 +37,11 @@ public class RootController {
 	@Autowired
 	TagRegistService tagRegistService;
 	
+	@ModelAttribute
+	Toukou setUpToukou() {
+		return new Toukou();
+	}
+	
 	/*記事登録*/
 	@RequestMapping("toukouPage")
 	public String toukou(@ModelAttribute("caution") String caution) {
@@ -44,18 +50,15 @@ public class RootController {
 	/*記事登録処理*/
 	@PostMapping("toukou")
 	public String toukou(Model model,
-					@RequestParam String mainTitle,
-					@RequestParam String tag,
-					@RequestParam String text,
-					RedirectAttributes redirectAttributes) {
+					@ModelAttribute("toukou") Toukou form) {
 		
-		int errorNum = artRegistService.toukouTagRegist(tag);
+		int errorNum = artRegistService.toukouTagRegist(form.getTag());
 		if(errorNum != 0) {
-			redirectAttributes.addAttribute("caution", "指定したタグは存在しません: "+errorNum);
-			return "redirect:toukouPage";
+			model.addAttribute("caution", "指定したタグは存在しません: "+errorNum);
+			return "toukou";
 		}
 		else {
-			artRegistService.toukouRegist(mainTitle,tag,text);
+			artRegistService.toukouRegist(form);
 		}
 		return "redirect:rootPage";
 	}
@@ -68,31 +71,27 @@ public class RootController {
 	/*記事編集ページ*/
 	@GetMapping("editArtPage")
 	public String editArtPage(Model model,@RequestParam int id,@RequestParam String caution) {
-		model.addAttribute("artContent", repository.findById(id).get());
+		model.addAttribute("toukou", repository.findById(id).get());
 		model.addAttribute("caution", caution);
+		
 		return "editArt";
 	}
 	/*記事編集処理ページ*/
 	@PostMapping("editArt")
-	public String editArt(@RequestParam Integer id,
-						  @RequestParam String mainTitle,
-						  @RequestParam String tag,
-						  @RequestParam String text,
+	public String editArt(@ModelAttribute("toukou") Toukou form, 
 						  RedirectAttributes redirectAttributes,
-						  Model model
-							) {
+						  Model model) {
 		/*タグ確認*/
-		int errorNum = artRegistService.toukouTagRegist(tag);
+		int errorNum = artRegistService.toukouTagRegist(form.getTag());
 		if(errorNum != 0) {
-			redirectAttributes.addAttribute("caution", "指定したタグは存在しません: "+errorNum);
-			redirectAttributes.addAttribute("id", id);
-			return "redirect:editArtPage";
+			model.addAttribute("caution", "指定したタグは存在しません: "+errorNum);
+			return "editArt";
 		}
 		/*記事削除、登録*/
 		else {
-			if(null==artRegistService.toukouEdit(id, mainTitle, tag, text)) {
+			if(null==artRegistService.toukouEdit(form)) {
 				redirectAttributes.addAttribute("caution", "エラーが発生しました");
-				redirectAttributes.addAttribute("id", id);
+				redirectAttributes.addAttribute("id", form.getId());
 				return "redirect:editArtPage";
 			}
 		}
