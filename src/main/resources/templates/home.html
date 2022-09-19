@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th ="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<p>ここはホームです。</p>
-	<a th:href="rootPage">管理者ページ</a>
-	<div th:each="art:${artList}" >
-		<p><a th:href="|art?id=${art.id}|">[[${art.maintitle}]]</a></p>
-	</div>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<link rel="stylesheet" href="artlist.css">
+	</head>
+	<body>
+		<span th:insert="fragment::header"></span>
+		<div id="page">
+	    	<div id="contentflame">
+	        	<div id="content">
+					<div id="samunelist">
+						<div th:each="art:${artList}">
+							<a th:href="|art?id=${art.id}|" id="samunecontiner">
+					        	<img src="samnail.jpg" alt="サムネ" id="samune">
+					        	<div id="samunetext">
+					        		<p th:text="${art.maintitle}" id="samunetitle"></p>
+					            	<p id="sukima"></p>
+					            	<p th:text="${art.date}" id="date"></p>
+					        	</div>
+					    	</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>

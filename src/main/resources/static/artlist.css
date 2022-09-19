@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    padding: 0;
+ }
+ header{
+    background-color: black;
+    position: fixed;
+    top:0px;
+    left: 0px;
+    width:50px;
+    height: 100%;
+}
+header #headerbutton{
+    width:100%;
+    margin: auto;
+    background-color: black;
+    margin: 10px 0;
+}
+header #headerbutton #text{
+    display: inline-block;
+
+    font-size: 12px;
+    width:50px;
+    text-align: center;
+    text-decoration: none;
+    line-height: 15px;
+    color: rgb(175, 175, 212);
+}
+
+#page{
+ background-image: url(back.png);
+ top:0px;
+}
+#contentflame{
+    width:50%;
+    min-width:700px;
+    min-height:100vh;
+    margin: 0 auto;
+    background-color: rgb(62, 62, 75);
+    box-shadow: 0 0 40px 25px rgb(36, 36, 53);
+}
+#content{
+    width:auto;
+    color: rgb(175, 175, 212);
+    padding: 30px;
+    margin: 0 auto;
+}
+
+#samunelist{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 20px;
+    width:auto;
+    color: rgb(175, 175, 212);
+    padding: 5px;
+    margin: 0 auto;
+}
+
+#samune{
+    width:300px;
+    height:250px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#samunecontiner{
+    display: inline-block;
+    width:300px;
+    border: none;
+    padding: 0;
+    border-radius: 10px;
+    background-color: blueviolet;
+    box-shadow: 0 0 10px 15px rgb(53, 53, 68);
+    text-decoration: none;
+}
+
+#samunetitle{
+    display: inline;
+    margin: 0;
+    color: rgb(175, 175, 212);
+    font-size:15px;
+    font-weight: bold;
+}
+
+#date{
+	color: rgb(175, 175, 212);
+    margin: 0;
+    display: inline;
+
+}
+
+#samunetext{
+    display: inline-flex;
+    justify-content: space-between;
+    margin: 0 5% 3% 5%;
+    width:90%;
+}
+
+#sukima{
+    width:auto;
+}

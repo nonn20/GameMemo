@@ -31,6 +31,9 @@ public class HomeController {
 		return "art";
 	}
 	
-	
+	@RequestMapping("test")
+	public String asd() {
+		return "test";
+	}
 	
 }

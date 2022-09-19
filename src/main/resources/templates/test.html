@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>これはてすと</title>
+        <link rel="stylesheet" href="test.css">
+    </head>
+    <body>
+        <span th:insert="fragment::header"></span>
+        <div id="page">
+            <div id="contentflame">
+                <div id="content">
+                    <p id="maintitle">もうちょっと長めのタイトル</p>
+                    <!-- 本文ここから -->
+                    <p id="subtitle">すこしテスト用にのばす小見出し</p>
+                    <div id="text">
+                        実際の見た目はこちらのキャプチャー画像の「おすすめ記事」という見出しのようになります。テキストのサイズや太さはちょっといじってますが、下線のグラデについては上記の3行のみです。
+                        <ul id="writedown">
+                            <li>あああああああああああああ</li>
+                            <li>いいいいいいいいいいいいい</li>
+                            <li>ううううううううううううう</li>
+                        </ul>
+                        <div id="caution">
+                            <p id="cautiontext">ここがポイント！！！！</p>
+                        </div>
+                    </div>
+                    <!-- 本文ここまで -->
+                </div>
+                
+                <div id="samunelist">
+                    <div id="samunecontiner">
+                        <img src="samnail.jpg" alt="サムネ" id="samune">
+                        <div id="samunetext">
+                            <p id="samunetitle">タイトル見出しいいいいいいいい</p>
+                            <p id="sukima"></p>
+                            <p id="date">2022/09/18</p>
+                        </div>
+                    </div>
+                    <div id="samunecontiner">
+                        <img src="samnail.jpg" alt="サムネ" id="samune">
+                        <div id="samunetext">
+                            <p id="samunetitle">タイトル見出し</p>
+                            <p id="sukima"></p>
+                            <p id="date">2022/09/18</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
