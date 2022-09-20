@@ -23,8 +23,7 @@
 						</div>
 					</div>
 					<div th:each="tag:${tagIndex}">
-						<p th:text="|${tag.key[0]} ${tag.key[1]}|"></p>
-						<p th:text="${tag.value}"></p>
+						<a th:href="|search/${tag.key[0]}|" th:text="|${tag.value} (${tag.key[1]})|"></a>
 					</div>
 				</div>
 			</div>

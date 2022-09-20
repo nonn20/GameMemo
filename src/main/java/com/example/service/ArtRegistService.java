@@ -103,4 +103,10 @@ public class ArtRegistService {
 		}
 		return artlist;
 	}
+	
+	/*指定したタグの付く記事を取ってくる*/
+	public Iterable<Toukou> getToukouBytagid(int tagid){
+		Iterable<Integer> artidByArtid = tagRepository.findArtIdBytagid(tagid);
+		return repository.findAllById(artidByArtid);
+	}
 }
