@@ -22,8 +22,13 @@
 					    	</a>
 						</div>
 					</div>
+					<div th:each="tag:${tagIndex}">
+						<p th:text="|${tag.key[0]} ${tag.key[1]}|"></p>
+						<p th:text="${tag.value}"></p>
+					</div>
 				</div>
 			</div>
+			
 		</div>
 	</body>
 </html>

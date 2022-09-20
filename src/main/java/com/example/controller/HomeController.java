@@ -9,15 +9,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entity.Toukou;
 import com.example.repository.ToukouRepository;
+import com.example.service.ArtRegistService;
+import com.example.service.IndexService;
 
 @Controller
 public class HomeController {
 	@Autowired
 	ToukouRepository repository;
 	
+	@Autowired
+	IndexService indexService;
+	
+	@Autowired
+	ArtRegistService artRegistService;
+	
 	@RequestMapping("home")
 	public String home(Model model) {
-		model.addAttribute("artList", repository.findAll());
+		model.addAttribute("artList", artRegistService.getRecentArt());
+		model.addAttribute("tagIndex", indexService.getTagIndex());
 		return "home";
 	}
 	

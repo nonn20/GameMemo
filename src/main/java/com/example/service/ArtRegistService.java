@@ -2,6 +2,7 @@ package com.example.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,7 @@ public class ArtRegistService {
 		Toukou result = null;
 		if(repository.existsById(toukou.getId())) {
 			repository.deleteById(toukou.getId());
+			tagRepository.deleteByArtid(toukou.getId());
 			/*idを初期化*/
 			toukou.setId(null);
 			/*現在日時を取得し最終更新日を更新*/
@@ -52,7 +54,6 @@ public class ArtRegistService {
 			String registDate = format.format(lastupdate);
 			toukou.setLastupdate(registDate);
 			result = repository.save(toukou);
-			
 		}
 		return result;
 	}
@@ -60,7 +61,7 @@ public class ArtRegistService {
 	/*tagテーブルに追加*/
 	public int toukouTagRegist(String tag) {
 		/*タグを要素ごとに分ける*/
-		int nextId = (int)repository.count()+1;
+		int nextId = (int)repository.getMaxId()+1;
 		Integer artNum;
 		for(int i=0;i<tag.length()-1;) {
 			/*最後の:より後ろに来た場合終了*/
@@ -82,5 +83,24 @@ public class ArtRegistService {
 			}
 		}
 		return 0;
+	}
+	
+	public Toukou[] getRecentArt() {
+		Toukou[] artlist = new Toukou[6];
+		Iterable<Integer> list = repository.getRecentArtId();
+		int[] idlist = new int[6];
+		int i = 0;
+		for(int id:list) {
+			idlist[i] = id;
+			if(i==5) {
+				break;
+			}
+			i++;
+		}
+		for(int j=0;j<6;j++) {
+			Optional<Toukou> art = repository.findById(idlist[j]);
+			artlist[j] = art.get();
+		}
+		return artlist;
 	}
 }
