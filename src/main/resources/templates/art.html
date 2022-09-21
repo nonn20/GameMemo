@@ -16,5 +16,8 @@
             </div>
         </div>
     </div>
+    <div th:each="tag:${tagList}">
+    	<p th:text="${tag}"></p>
+    </div>
 </body>
 </html>

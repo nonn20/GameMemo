@@ -19,6 +19,9 @@
 					            	<p id="sukima"></p>
 					            	<p th:text="${art.date}" id="date"></p>
 					        	</div>
+					        	<div id="taglist" th:each="tag:${art.tag}">
+					        		<p th:text = "${tag.name}">
+					        	</div>
 					    	</a>
 						</div>
 					</div>

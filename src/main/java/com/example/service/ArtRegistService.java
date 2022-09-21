@@ -2,12 +2,13 @@ package com.example.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.Tag;
+import com.example.entity.TagEntity;
+import com.example.entity.TagValuedToukou;
 import com.example.entity.Toukou;
 import com.example.repository.TagEntityRepository;
 import com.example.repository.TagRepository;
@@ -85,8 +86,10 @@ public class ArtRegistService {
 		return 0;
 	}
 	
-	public Toukou[] getRecentArt() {
-		Toukou[] artlist = new Toukou[6];
+	/*最新6件の記事を取得*/
+	public TagValuedToukou[] getRecentArt() {
+		 TagValuedToukou[] artlist = new TagValuedToukou[6];/*tagメンバがTagEntityの型*/
+		 /*最新6件の記事Idを取得*/
 		Iterable<Integer> list = repository.getRecentArtId();
 		int[] idlist = new int[6];
 		int i = 0;
@@ -97,11 +100,21 @@ public class ArtRegistService {
 			}
 			i++;
 		}
+		/*記事Idからそれの記事についたタグを取得*/
 		for(int j=0;j<6;j++) {
-			Optional<Toukou> art = repository.findById(idlist[j]);
-			artlist[j] = art.get();
+			Toukou art = repository.findById(idlist[j]).get();/*タグから記事を取得*/
+			artlist[j]= new TagValuedToukou();
+			artlist[j].tranceFromToukou(art);/*記事の情報をtagの型を変えたentityの配列に格納(移す)*/
+			artlist[j].setTag(getTagByArtId(artlist[j].getId()));/*記事Idからそれの記事についたタグを取得*/
 		}
 		return artlist;
+	}
+	
+	/*指定した記事IDからタグの名前を取ってくる*/
+	public Iterable<TagEntity> getTagByArtId(Integer artid){
+		Iterable<Integer> tagIdList = tagRepository.findTagByArtid(artid);
+		Iterable<TagEntity> tagList = tagERepository.findAllById(tagIdList);
+		return tagList;
 	}
 	
 	/*指定したタグの付く記事を取ってくる*/

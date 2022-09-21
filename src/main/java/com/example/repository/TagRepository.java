@@ -13,4 +13,7 @@ public interface TagRepository extends CrudRepository<Tag,Integer>{
 	
 	@Query("select artid from tag t where t.tag= :tagid")
 	Iterable<Integer> findArtIdBytagid(@Param("tagid") int tagid);
+	
+	@Query("select tag from tag t where t.artid = :artid")
+	Iterable<Integer> findTagByArtid(@Param("artid") Integer artid);
 }

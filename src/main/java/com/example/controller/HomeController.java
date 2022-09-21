@@ -36,6 +36,7 @@ public class HomeController {
 		Toukou art = null;
 		if(repository.findById(id).isPresent()) {
 			art = repository.findById(id).get();
+			model.addAttribute("tagList", artRegistService.getTagByArtId(id));
 		}
 		model.addAttribute("artContent",art);
 		return "art";

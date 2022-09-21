@@ -6,4 +6,5 @@ import com.example.entity.TagEntity;
 
 public interface TagEntityRepository extends CrudRepository<TagEntity,Integer>{
 	Boolean existsByName(String name);
+	
 }
