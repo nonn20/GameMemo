@@ -1,20 +1,20 @@
 package com.example.controller;
 
-import java.io.File;
-import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.form.AppConfig;
+import com.example.form.ImageForm;
+import com.example.service.FileUploadService;
  
 @Controller
 public class SampleController {
-	@Autowired
+	/*@Autowired
 	private AppConfig appConfig;
 	
 	@PostMapping("/upload")
@@ -35,6 +35,35 @@ public class SampleController {
 		}
 		return "home";
 		
+	}*/
+	
+	private final FileUploadService fileUploadService;
+	
+	public SampleController(
+			FileUploadService fileUploadService) {
+		this.fileUploadService = fileUploadService;
+	}
+
+    @RequestMapping("/uploadimg")
+	public String showCreateContent(@ModelAttribute("Form") ImageForm file,Model model) {
+		return "imageUpload";
+	}
+
+    @PostMapping("/upload")
+	public String createContent(@ModelAttribute("fileUploadForm")  ImageForm file,
+			                    Model model) throws Exception{
+		
+		
+		String imageName = null;
+		LocalDateTime dateTime = LocalDateTime.now();
+		//ファイルが空でない場合に、ファイルをアップロードする
+		if(!Objects.isNull(file.getMultipartFile())){
+			String s3Path = "gamememo-noon/" +"test";
+			file.setCreateAt(dateTime);
+			imageName = fileUploadService.fileUpload(file, s3Path);	
+		}
+		
+		return "redirect:/uploadimg";
 	}
  
 }

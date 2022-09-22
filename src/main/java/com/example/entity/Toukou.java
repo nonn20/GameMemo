@@ -17,4 +17,5 @@ public class Toukou {
 	private String text;
 	private String lastupdate;
 	private String date;
+	private String samuneimg;
 }

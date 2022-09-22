@@ -13,7 +13,7 @@
 					<div id="samunelist">
 						<div th:each="art:${artList}">
 							<a th:href="|art?id=${art.id}|" id="samunecontiner">
-					        	<img src="samnail.jpg" alt="サムネ" id="samune">
+					        	<img th:src="${art.samuneimg}" alt="サムネ" id="samune">
 					        	<div id="samunetext">
 					        		<p th:text="${art.maintitle}" id="samunetitle"></p>
 					            	<p id="sukima"></p>

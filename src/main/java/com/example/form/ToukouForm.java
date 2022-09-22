@@ -11,4 +11,5 @@ public class ToukouForm {
 	private String mainTitle;
 	private String tag;
 	private String text;
+	private String Samuneimg;
 }

@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>sample</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+<a th:href="rootPage">管理者ホームへ戻る</a>
+<div class="container">
+    <form class="row" id="category" enctype="multipart/form-data" th:action="@{/upload}" method="post" >
+	    <div th:object="${Form}">
+            <input type="file" th:field="*{multipartFile}">
+        </div>
+	    <button type="submit">登録</button>
+	</form>
+</div>
+</body>
+</html>

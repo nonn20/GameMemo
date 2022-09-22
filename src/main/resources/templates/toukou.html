@@ -10,6 +10,7 @@
 	<form action="toukou" method="post" th:object="${toukou}">
 		タイトル<input th:type="text" th:id="maintitle" th:name="maintitle" th:value="*{maintitle}"><br>
 		タグ    <input th:type="text" th:id="tag" th:name="tag" th:field="*{tag}"><br>
+		サムネ	<input th:type="text" th:id="samuneimg" th:name="samuneimg" th:field="*{samuneimg}"><br>
 		本文    <textarea th:type="textarea" cols="50" rows="10" th:id="text" th:name="text" th:field="*{text}"></textarea><br>
 		
 		<button th:type="submit">投稿</button>

@@ -13,6 +13,7 @@ public class TagValuedToukou {
 	private String text;
 	private String lastupdate;
 	private String date;
+	private String samuneimg;
 	
 	public void tranceFromToukou(Toukou toukou) {
 		this.id = toukou.getId();
@@ -20,6 +21,7 @@ public class TagValuedToukou {
 		this.text = toukou.getText();
 		this.lastupdate = toukou.getLastupdate();
 		this.date = toukou.getDate();
+		this.samuneimg = toukou.getSamuneimg();
 	}
 
 }
