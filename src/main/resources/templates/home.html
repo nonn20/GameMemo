@@ -4,33 +4,34 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<link rel="stylesheet" href="artlist.css">
+		<link rel="stylesheet" href="head.css">
 	</head>
 	<body>
 		<span th:insert="fragment::header"></span>
 		<div id="page">
 	    	<div id="contentflame">
 	        	<div id="content">
+	        		
 					<div id="samunelist">
 						<div th:each="art:${artList}">
 							<a th:href="|art?id=${art.id}|" id="samunecontiner">
-					        	<img th:src="${art.samuneimg}" alt="サムネ" id="samune">
+					        	<!--  <img th:src="${art.samuneimg}" alt="サムネ" id="samune"> -->
+					        	<img th:src="samnail.jpg" alt="サムネ" id="samune">
 					        	<div id="samunetext">
 					        		<p th:text="${art.maintitle}" id="samunetitle"></p>
-					            	<p id="sukima"></p>
-					            	<p th:text="${art.date}" id="date"></p>
-					        	</div>
-					        	<div id="taglist" th:each="tag:${art.tag}">
-					        		<p th:text = "${tag.name}">
+					        		<div id="taglist">
+					        			<span  th:each="tag:${art.tag}">
+					        				<p th:text = "${tag.name}" id="tag"></p>
+					        			</span>
+					        			<p th:text="${art.date}" id="date"></p>
+					        		</div>
 					        	</div>
 					    	</a>
 						</div>
 					</div>
-					<div th:each="tag:${tagIndex}">
-						<a th:href="|search/${tag.key[0]}|" th:text="|${tag.value} (${tag.key[1]})|"></a>
-					</div>
 				</div>
 			</div>
-			
+			<span th:insert="fragment::footer"></span>
 		</div>
 	</body>
 </html>

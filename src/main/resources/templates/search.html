@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="/artlist.css">
+	<link rel="stylesheet" href="/head.css">
 </head>
 <body>
 	<span th:insert="fragment::header"></span>
@@ -13,7 +14,7 @@
 			<div id="samunelist">
 				<div th:each="art:${artList}">
 					<a th:href="|/art?id=${art.id}|" id="samunecontiner">
-						<img src="samnail.jpg" alt="サムネ" id="samune">
+						<img th:src="samnail.jpg" alt="サムネ" id="samune">
 						<div id="samunetext">
 							<p th:text="${art.maintitle}" id="samunetitle"></p>
 							<p id="sukima"></p>
@@ -24,6 +25,7 @@
 			</div>
 		</div>
 	</div>
+	<span th:insert="fragment::footer"></span>
 	</div>
 </body>
 </html>

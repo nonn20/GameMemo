@@ -1,103 +1,86 @@
 @charset "UTF-8";
-
-body {
-    margin: 0;
-    padding: 0;
- }
- header{
-    background-color: black;
-    position: fixed;
-    top:0px;
-    left: 0px;
-    width:50px;
-    height: 100%;
-}
-header #headerbutton{
-    width:100%;
-    margin: auto;
-    background-color: black;
-    margin: 10px 0;
-}
-header #headerbutton #text{
-    display: inline-block;
-
-    font-size: 12px;
-    width:50px;
-    text-align: center;
-    text-decoration: none;
-    line-height: 15px;
-    color: rgb(175, 175, 212);
-}
-
 #page{
- background-image: url(back.png);
- top:0px;
+    background-color: rgb(211, 211, 233);
+    display:flex;
+    justify-content:center;
+    top:0px;
 }
 #contentflame{
     width:50%;
     min-width:700px;
     min-height:100vh;
-    margin: 0 auto;
-    background-color: rgb(62, 62, 75);
-    box-shadow: 0 0 40px 25px rgb(36, 36, 53);
+    padding: 0 0 20px 0;
+    margin: 0;
+    background-color: rgb(218, 218, 234);
+    color: rgb(74, 74, 88);
+    box-shadow: 0 0 20px 10px rgba(148, 148, 171, 0.544);
 }
 #content{
-    width:auto;
-    color: rgb(175, 175, 212);
-    padding: 30px;
-    margin: 0 auto;
+   width:auto;
+   padding: 30px;
+   margin: 0 auto;
 }
 
 #samunelist{
     display: flex;
     flex-wrap: wrap;
+    justify-content:center;
     gap: 20px 20px;
-    width:auto;
-    color: rgb(175, 175, 212);
-    padding: 5px;
+    width:100%;
+    color: rgb(218, 218, 234);
     margin: 0 auto;
 }
 
 #samune{
-    width:300px;
-    height:250px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    width:260px;
+    height:200px;
+    margin: 0 20px 0 20px;
+    border-radius: 10px;
 }
 
 #samunecontiner{
     display: inline-block;
     width:300px;
     border: none;
-    padding: 0;
-    border-radius: 10px;
-    background-color: blueviolet;
-    box-shadow: 0 0 10px 15px rgb(53, 53, 68);
+    padding: 20px 0;
+    border-radius: 20px;
+    background-color: rgb(90, 61, 210);
+    box-shadow: 5px 5px 10px 1px rgb(148, 148, 171);
     text-decoration: none;
 }
 
 #samunetitle{
-    display: inline;
+    width: 100%;
     margin: 0;
-    color: rgb(175, 175, 212);
     font-size:15px;
     font-weight: bold;
 }
 
-#date{
-	color: rgb(175, 175, 212);
-    margin: 0;
+#samunetext #taglist #date{
     display: inline;
-
+    font-size: 5px;
 }
 
 #samunetext{
     display: inline-flex;
-    justify-content: space-between;
-    margin: 0 5% 3% 5%;
+    flex-flow: column;
+    gap: 5px;
+    margin: 0 5% 0 5%;
     width:90%;
+    height: auto;
+    color:rgb(218, 218, 234);
 }
 
-#sukima{
-    width:auto;
+#samunecontiner #taglist{
+	display:flex;
+	gap:5px;
+}
+
+#samunecontiner #taglist #tag{
+    background-color: rgb(218, 218, 234);
+    color: rgb(90, 61, 210);;
+    display: inline;
+    border-radius: 10px;
+    padding :5px;
+    font-size: 10px;
 }

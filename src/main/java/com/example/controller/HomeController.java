@@ -37,6 +37,7 @@ public class HomeController {
 		if(repository.findById(id).isPresent()) {
 			art = repository.findById(id).get();
 			model.addAttribute("tagList", artRegistService.getTagByArtId(id));
+			model.addAttribute("tagIndex", indexService.getTagIndex());
 		}
 		model.addAttribute("artContent",art);
 		return "art";
@@ -45,6 +46,7 @@ public class HomeController {
 	@RequestMapping("search/{tagid}")
 	public String selectFunction(Model model,@PathVariable int tagid) {
 		model.addAttribute("artList", artRegistService.getToukouBytagid(tagid));
+		model.addAttribute("tagIndex", indexService.getTagIndex());
 		return "search";
 	}
 	

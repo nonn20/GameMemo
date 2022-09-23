@@ -1,62 +1,45 @@
 @charset "UTF-8";
-body {
-    margin: 0;
-    padding: 0;
- }
- header{
-    background-color: black;
-    position: fixed;
-    top:0px;
-    left: 0px;
-    width:50px;
-    height: 100%;
-}
-header #headerbutton{
-    width:100%;
-    margin: auto;
-    background-color: black;
-    margin: 10px 0;
-}
-
-header #headerbutton #text{
-    display: inline-block;
-
-    font-size: 12px;
-    width:50px;
-    text-align: center;
-    text-decoration: none;
-    line-height: 15px;
-    color: rgb(175, 175, 212);
-}
 #page{
- background-image: url(back.png);
- top:0px;
+    background-color: rgb(211, 211, 233);
+    display:flex;
+    justify-content:center;
+    top:0px;
 }
 #contentflame{
     width:50%;
     min-width:700px;
     min-height:100vh;
-    margin: 0 auto;
-    background-color: rgb(62, 62, 75);
-    box-shadow: 0 0 40px 25px rgb(36, 36, 53);
+    padding: 0 0 20px 0;
+    margin: 0;
+    background-color: rgb(218, 218, 234);
+    color: rgb(74, 74, 88);
+    box-shadow: 0 0 20px 10px rgba(148, 148, 171, 0.544);
 }
 #content{
     width:auto;
-    color: rgb(175, 175, 212);
     padding: 5%;
     margin: 0 auto;
 }
 
 #content #maintitle{
-    display: inline-block;
-    font-size: 30px;
+    display: block;
+    font-size: 35px;
     font-weight: bold;
-    padding:10px;
-    margin: 0 0 25px 0;
+    padding:0;
+    margin: 0;
     width:auto;
-    background-color: darkorchid;
     border-radius: 10px;
-    box-shadow: 0 -15px 25px -1px rgb(82, 82, 204) inset;
+}
+#content #clockImg{
+    display: inline;
+    opacity: 0.5;
+    height: 20px;
+}
+
+#content #date{
+    display: inline-block;
+    margin: 0 0 0 5px;
+    color: rgba(74, 74, 88, 0.6);
 }
 
 #content #subtitle{
@@ -65,13 +48,18 @@ header #headerbutton #text{
     padding: 7px 7px 5px 7px;
     margin:0 0 20px 0;
     border-bottom: 4px solid darkorchid;
-    border-image: linear-gradient(to right, darkorchid 0%, rgb(82, 82, 204) 100%);
+    border-image: linear-gradient(to right, rgb(82, 82, 204) 0%, darkorchid 100%);
     border-image-slice: 1;
+}
+
+#content img{
+    max-width: 100%;
+    height: auto;
 }
 
 #content #text{
     font-size: 15px;
-    width:95%;
+    width:100%;
     margin: 0 0 4px 0;
 }
 
@@ -83,27 +71,34 @@ header #headerbutton #text{
     margin:0 0 4px 0;
 }
 
-#content #text #caution{
+#content #text #cautioncontainer{
     padding:20px 10px;
-    border: 2px solid blueviolet;
-    margin: 10px 0;
+    border: 5px solid rgb(218, 218, 234);
+    box-shadow: 0 0 20px 0px rgb(82, 82, 204) inset,0 0 20px 0px rgb(82, 82, 204);
+    margin: 20px 0;
     border-radius: 10px;
-    width: auto;
-    display: inline-block;
+    width: 80%;
+    display: block;
+    text-align: center;
 }
 
 #content #text #cautiontext{
-    color: rgb(200, 73, 88);
     font-weight: bold;
     font-size:20px;
-    margin: 0 10px;
+    width: 100%;
+    margin: 0%;
 }
 
-#date{
-	color: rgb(119, 119, 143);
-    margin: 0 0 10px 0;
-    display: block;
-
+#content #taglist{
+	display:inline-flex;
+	gap:5px;
 }
 
-
+#content #taglist #tag{
+    background-color: rgb(218, 218, 234);
+    color: rgb(90, 61, 210);
+    display: inline;
+    border-radius: 10px;
+    padding :2px;
+    font-size: 12px;
+}

@@ -4,20 +4,25 @@
 	<meta charset="UTF-8">
 	<title th:text="${artContent.maintitle}"></title>
 	<link rel="stylesheet" href="test.css">
+	<link rel="stylesheet" href="head.css">
 </head>
 <body>
 	<span th:insert="fragment::header"></span>
 	<div id="page">
     	<div id="contentflame">
         	<div id="content">
-        		<div th:text="|Post: ${artContent.date}|" id="date"></div>
             	<p id="maintitle" th:text="${artContent.maintitle}">もうちょっと長めのタイトル</p>
+            	<img src="clock.png" id="clockImg">
+            	<div id="date">[[${artContent.date}]]</div>
+            	<div id="taglist">
+					<span  th:each="tag:${tagList}">
+						<a id="tag" th:text = "${tag.name}" th:href="|search/${tag.id}|"></a>
+					</span>
+				</div>
             	<div th:utext="${artContent.text}"></div>
             </div>
         </div>
-    </div>
-    <div th:each="tag:${tagList}">
-    	<p th:text="${tag}"></p>
+        <span th:insert="fragment::footer"></span>
     </div>
 </body>
 </html>

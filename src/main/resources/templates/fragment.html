@@ -21,5 +21,10 @@
 	
 	<!-- コンテンツフレーム -->
 	
-
+	<footer th:fragment="footer">
+		<p id="footerIndex">タグ検索</p>
+		<div th:each="tag:${tagIndex}">
+			<a id="tag" th:href="|search/${tag.key[0]}|" th:text="|${tag.value} (${tag.key[1]})|"></a>
+		</div>
+	</footer>
 </body>
